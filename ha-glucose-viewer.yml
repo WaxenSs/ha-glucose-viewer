@@ -1,20 +1,31 @@
-alias: Veilleuse Glycémie
+alias: "Veilleuse Glycémie"
 description: >
-  Change la couleur de la Philips Hue Go en fonction de la glycémie Dexcom en
-  temps réel.
+  Change la couleur de la Philips Hue Go en fonction
+  de la glycémie Dexcom en temps réel.
+  La luminosité s'adapte automatiquement : douce la nuit, plus forte le jour.
+
 mode: restart
 
 triggers:
+  # Mise à jour de la glycémie (~toutes les 5 min)
   - trigger: state
     entity_id: sensor.dexcom_g7_glucose_value
+  # Lever / coucher du soleil → ajuster la luminosité immédiatement
+  - trigger: state
+    entity_id: sun.sun
+
 conditions:
-  - condition: state
-    entity_id: device_tracker.iphone_de_clementine
-    state:
-      - home
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: sensor.dexcom_g7_glucose_value
+        state:
+          - "unavailable"
+          - "unknown"
+
 actions:
   - choose:
-      # ── Hypo sévère (0-55) → Violet ──
+      # ── Hypo sévère (0-55) → Bleu ──
       - conditions:
           - condition: numeric_state
             entity_id: sensor.dexcom_g7_glucose_value
@@ -24,13 +35,11 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.214
-                - 0.066
-              brightness: 5
+              xy_color: [0.178, 0.059]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
-      # ── Hypo légère (56-70) → Rouge ──
+      # ── Hypo légère (56-70) → Violet ──
       - conditions:
           - condition: numeric_state
             entity_id: sensor.dexcom_g7_glucose_value
@@ -41,10 +50,8 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.493
-                - 0.221
-              brightness: 5
+              xy_color: [0.214, 0.066]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
       # ── Plage normale basse (71-79) → Rose ──
@@ -58,10 +65,8 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.426
-                - 0.184
-              brightness: 5
+              xy_color: [0.426, 0.184]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
       # ── Plage normale (80-140) → Vert ──
@@ -75,10 +80,8 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.401
-                - 0.501
-              brightness: 5
+              xy_color: [0.401, 0.501]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
       # ── Plage normale haute (141-179) → Vert-bleu clair ──
@@ -92,10 +95,8 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.36
-                - 0.422
-              brightness: 5
+              xy_color: [0.360, 0.422]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
       # ── Hyper légère (180-249) → Jaune ──
@@ -109,10 +110,8 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.453
-                - 0.486
-              brightness: 5
+              xy_color: [0.517, 0.439]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
       # ── Hyper (250-300) → Orange ──
@@ -126,13 +125,11 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.517
-                - 0.439
-              brightness: 5
+              xy_color: [0.675, 0.439]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
 
-      # ── Hyper sévère (301-400) → Très rouge ──
+      # ── Hyper sévère (301-400) → Rouge ──
       - conditions:
           - condition: numeric_state
             entity_id: sensor.dexcom_g7_glucose_value
@@ -143,8 +140,6 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              xy_color:
-                - 0.675
-                - 0.322
-              brightness: 5
+              xy_color: [0.675, 0.322]
+              brightness: "{{ 80 if is_state('sun.sun', 'above_horizon') else 5 }}"
               transition: 2
