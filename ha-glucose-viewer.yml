@@ -31,7 +31,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [226, 0, 255]
+              xy_color: [0.214, 0.066]
               brightness: 5
               transition: 2
 
@@ -46,7 +46,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [255, 0, 77]
+              xy_color: [0.493, 0.221]
               brightness: 5
               transition: 2
 
@@ -61,7 +61,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [255, 0, 100]
+              xy_color: [0.426, 0.184]
               brightness: 5
               transition: 2
 
@@ -76,7 +76,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [0, 255, 68]
+              xy_color: [0.401, 0.501]
               brightness: 5
               transition: 2
 
@@ -91,7 +91,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [0, 255, 170]
+              xy_color: [0.360, 0.422]
               brightness: 5
               transition: 2
 
@@ -106,7 +106,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [255, 174, 0]
+              xy_color: [0.453, 0.486]
               brightness: 5
               transition: 2
 
@@ -121,7 +121,7 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [255, 98, 0]
+              xy_color: [0.517, 0.439]
               brightness: 5
               transition: 2
 
@@ -136,6 +136,6 @@ actions:
             target:
               entity_id: light.lulu
             data:
-              rgb_color: [255, 0, 0]
+              xy_color: [0.675, 0.322]
               brightness: 5
               transition: 2
