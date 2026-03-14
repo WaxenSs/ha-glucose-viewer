@@ -1,0 +1,141 @@
+alias: "Veilleuse Glycémie"
+description: >
+  Change la couleur de la Philips Hue Go en fonction
+  de la glycémie Dexcom en temps réel.
+
+mode: restart
+
+triggers:
+  - trigger: state
+    entity_id: sensor.dexcom_g7_glucose_value
+
+conditions:
+  # On ne fait rien si le capteur est indisponible
+  - condition: not
+    conditions:
+      - condition: state
+        entity_id: sensor.dexcom_g7_glucose_value
+        state:
+          - "unavailable"
+          - "unknown"
+
+actions:
+  - choose:
+      # ── Hypo sévère (0-55) → Violet ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            below: 56
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [226, 0, 255]
+              brightness: 5
+              transition: 2
+
+      # ── Hypo légère (56-70) → Rouge ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 55
+            below: 71
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [255, 0, 77]
+              brightness: 5
+              transition: 2
+
+      # ── Plage normale basse (71-79) → Rose ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 70
+            below: 80
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [255, 0, 100]
+              brightness: 5
+              transition: 2
+
+      # ── Plage normale (80-140) → Vert ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 79
+            below: 141
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [0, 255, 68]
+              brightness: 5
+              transition: 2
+
+      # ── Plage normale haute (141-179) → Vert-bleu clair ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 140
+            below: 180
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [0, 255, 170]
+              brightness: 5
+              transition: 2
+
+      # ── Hyper légère (180-249) → Jaune ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 179
+            below: 250
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [255, 174, 0]
+              brightness: 5
+              transition: 2
+
+      # ── Hyper (250-300) → Orange ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 249
+            below: 301
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [255, 98, 0]
+              brightness: 5
+              transition: 2
+
+      # ── Hyper sévère (301-400) → Très rouge ──
+      - conditions:
+          - condition: numeric_state
+            entity_id: sensor.dexcom_g7_glucose_value
+            above: 300
+            below: 401
+        sequence:
+          - action: light.turn_on
+            target:
+              entity_id: light.lulu
+            data:
+              rgb_color: [255, 0, 0]
+              brightness: 5
+              transition: 2
