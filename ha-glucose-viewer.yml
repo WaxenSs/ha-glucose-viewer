@@ -36,7 +36,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.178, 0.059]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Hypo légère (56-70) → Violet ──
@@ -51,7 +51,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.214, 0.066]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Plage normale basse (71-79) → Rose ──
@@ -66,7 +66,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.426, 0.184]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Plage normale (80-140) → Vert ──
@@ -81,7 +81,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.401, 0.501]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Plage normale haute (141-179) → Vert-bleu clair ──
@@ -96,7 +96,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.360, 0.422]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Hyper légère (180-249) → Jaune ──
@@ -111,7 +111,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.517, 0.439]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Hyper (250-300) → Orange ──
@@ -126,7 +126,7 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.675, 0.439]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
 
       # ── Hyper sévère (301-400) → Rouge ──
@@ -141,5 +141,5 @@ actions:
               entity_id: light.lulu
             data:
               xy_color: [0.675, 0.322]
-              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 5 }}"
+              brightness: "{{ 60 if is_state('sun.sun', 'above_horizon') else 1 }}"
               transition: 2
